@@ -165,12 +165,51 @@ TimeSeriesData
 1. In the Azure portal, search for "Deploy a custom template" in the Search resources, services, and docs text box.
 
 2. On the Custom deployment blade, choose the option to build your own template in the editor.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/e41a95de-a5b9-4468-af6a-2c779f0e5bb0" height="50%" width="50%" alt="Build a Template for Custom Template"/> 
 
-3. Load the provided template file "changeincidentseverity.json" from the \Allfiles\Labs\15\ directory.
+3. Load the provided template file "changeincidentseverity.json" [here](https://github.com/0xbythesecond/Microsoft-Sentinel/blob/main/changeincidentseverity.json).
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/22935ac3-05d5-4687-829c-f0a178281f45" height="70%" width="70%" alt="Load JSON Template"/>
 
 4. Save the template and provide the necessary details such as subscription, resource group, location, playbook name, and user name.
 
 5. Review the settings and click "Review + create" and then "Create" to deploy the playbook.
+ 
+ <img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/959f371a-d168-43de-9a61-c10a4da99547" height="50%" width="50%" alt="Create The Template and Select the Resource Group"/>
+ 
+ >**Note**: Wait for the deployment to complete.
+
+In the Azure portal, in the Search resources, services, and docs text box at the top of the Azure portal page, type Resource groups and press the Enter key.
+
+On the Resource groups blade, in the list of resource group, click the AZ500LAB131415 entry.
+
+On the AZ500LAB131415 resource group blade, in the list of resources, click the entry representing the newly created Change-Incident-Severity logic app.
+
+On the Change-Incident-Severity blade, click Edit.
+
+  >**Note**: On the Logic Apps Designer blade, each of the four connections displays a warning. This means that each needs to reviewed and configured.
+
+On the Logic Apps Designer blade, click the first Connections step.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/35deb285-f852-4fa9-9b28-6c8ae9c87f4d" height="70%" width="70%" alt="Add New Connection"/> 
+
+Click Add new, ensure that the entry in the Tenant drop down list contains your Azure AD tenant name and click Sign-in.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/24058bca-5568-4e57-887e-a5bc23f39c7a" height="50%" width="50%" alt="Select Default Directory"/> 
+
+When prompted, sign in with the user account that has the Owner or Contributor role in the Azure subscription you are using for this lab.
+
+Click the second Connection step and, in the list of connections, select the second entry, representing the connection you created in the previous step.
+
+Repeat the previous steps in for the remaining two Connection steps.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/d9c27651-32e6-4105-bdff-68e3afd2acf5" Lheight="70%" width="70%" alt="Logic Apps Designer - Microsoft Azure"/> 
+
+  >**Note**: Ensure there are no warnings displayed on any of the steps.
+
+On the Logic Apps Designer blade, click Save to save your changes.
+
 
 </details>
 
@@ -187,16 +226,34 @@ TimeSeriesData
 1. Go to the Microsoft Sentinel Overview blade and click "Analytics" in the Configuration section.
 
 2. On the Analytics blade, click "+ Create" and select "Scheduled query rule" from the drop-down menu.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/85b4fdcf-8c97-4642-93ed-4ee53c518540" height="70%" width="70%" alt="Create Scheduled Query Rule"/>
 
 3. On the General tab of the Create new rule blade, specify the rule name, tactics, and other settings.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/e14c2936-f617-4de0-853d-c1bcc15d2a50" height="70%" width="70%" alt="Create a New Scheduled Rule (General Tab)"/>
 
 4. Switch to the Set rule logic tab and paste the provided rule query in the Rule query text box.
+ 
+```kql
+ AzureActivity
+  | where ResourceProviderValue =~ "Microsoft.Security" 
+  | where OperationNameValue =~ "Microsoft.Security/locations/jitNetworkAccessPolicies/delete" 
+``` 
+ 
+   >**Note**: This rule identifies removal of Just in time VM access policies.
+
+  >**Note**: if you receive a parse error, intellisense may have added values to your query. Ensure the query matches otherwise paste the query into notepad and then from notepad to the rule query.
 
 5. Configure the query scheduling and other settings as per the instructions.
 
 6. On the Automated response tab, select the checkbox next to the Change-Incident-Severity playbook in the Alert automation (classic) dropdown list.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/cf2d9e47-ad59-4982-9cfd-05a4748239ef" height="70%" width="70%" alt="Create Sentinel Analytics Rule - (Automation Rule Tab)"/>
 
 7. Review the settings and click "Create" to activate the rule.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/e695338d-bac6-4968-9c3c-5516569442f9" height="70%" width="70%" alt="Create a New Scheduled Rule (Review Create)"/> 
 
 </details>
 
