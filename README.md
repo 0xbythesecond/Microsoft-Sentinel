@@ -254,6 +254,8 @@ On the Logic Apps Designer blade, click Save to save your changes.
 7. Review the settings and click "Create" to activate the rule.
  
 <img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/e695338d-bac6-4968-9c3c-5516569442f9" height="70%" width="70%" alt="Create a New Scheduled Rule (Review Create)"/> 
+ 
+  >**Note**: You now have a new active rule called Playbook Demo. If an event identified by the rue logic occurs, it will result in a medium severity alert, which will generate a corresponding incident.
 
 </details>
 
@@ -278,12 +280,16 @@ On the Logic Apps Designer blade, click Save to save your changes.
 5. On the "Microsoft Defender for Cloud | Just in time VM access" blade, locate the row corresponding to the target virtual machine (e.g., myVM).
 
 6. Click the ellipses button on the right-hand side of the row, select "Remove," and confirm by clicking "Yes."
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/9bdecc25-850a-40f1-98e5-fb7c6f07840d" height="70%" width="70%" alt="Remove JIT VM Access"/>
 
   >**Note**: If the VM is not listed in the "Just-in-time VMs," go to the "Virtual Machine" blade, click on "Configuration," enable the "Just-in-time VMs" option under the Just-in-time VM's access, and repeat the previous step after navigating back to the "Microsoft Defender for Cloud" blade.
 
 7. In the Azure portal, use the search box at the top to type "Activity log" and press Enter.
 
 8. Navigate to the "Activity log" blade and look for an entry indicating the deletion of JIT Network Access Policies. Please note that it may take a minute to appear.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/e19c4ad9-54d0-4695-b3ed-498884987340" height="70%" width="70%" alt="Activity Log Displays Delete JIT Network Access Policies"/> 
 
 9. Go back to the Azure portal and navigate to the "Microsoft Sentinel | Overview" blade.
 
@@ -294,6 +300,8 @@ On the Logic Apps Designer blade, click Save to save your changes.
 11. In the "Threat Management" section of the "Microsoft Sentinel | Overview" blade, click on "Incidents."
 
 12. Verify that the "Incidents" blade displays an incident with either medium or high severity level.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/21448a5d-dc55-463c-9d69-2f280ac9bc62" height="70%" width="70%" alt="Created Incidents"/>
 
   >**Note**: It may take up to 5 minutes for the incident to appear on the "Microsoft Sentinel | Incidents" blade.
 
@@ -319,6 +327,15 @@ Remember to remove any Azure resources that are no longer needed to avoid unexpe
 Remove-AzResourceGroup -Name "AZ500LAB131415" -Force -AsJob
 ```
 
+![Delete Resource Group](https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/1c815e83-ebbf-4863-a519-854ad805b048)
+ 
+ 
 5. Close the Cloud Shell pane.
   
 </details>  
+
+## Reflection
+In this lab, I successfully completed the on-boarding and configuration of Microsoft Sentinel in Azure. I followed a step-by-step process to connect the Log Analytics workspace and configure the Azure Activity data connector. I also created a rule that utilizes the Azure Activity data connector and set up a playbook for automated response. Additionally, I created a custom alert and associated it with the playbook. Finally, I invoked an incident and reviewed the actions taken by Microsoft Sentinel. Overall, this lab provided hands-on experience in setting up Azure Sentinel and leveraging its capabilities for threat detection and response.
+
+## Closing
+By completing this lab, I have gained practical knowledge in on-boarding Azure Sentinel and configuring its essential components. Azure Sentinel offers powerful capabilities for security monitoring and response, and this lab has equipped us with the skills to leverage its features effectively. I've learned how to connect data sources, create rules, set up automated responses, and review incidents. This knowledge will be valuable in enhancing our organization's security posture and strengthening our ability to detect and respond to threats effectively.
