@@ -103,10 +103,52 @@ Click the Create button. You should observe three succeeded status messages: Cre
 
 5. Configure the rule settings on the General, Set rule logic, Incident settings, and Automated response tabs as per the default settings.
   
-https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/c0792160-2e51-43d8-b0f9-5977cadd4883)
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/c0792160-2e51-43d8-b0f9-5977cadd4883" height="50%" width="50%" alt="Create a New Rule from Template (General Tab)"/>
+ 
+Rule Logic Defaults
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/017964c3-1509-4a87-968e-f3842bd0ad31" height="80%" width="80%" alt="Analytics rule wizard - Set Logic Rules from Template"/>
+ 
+<details>
+  
+ <summary> Set Logic Rule in Template </summary>
+  
+```kql 
+let szOperationNames = dynamic(["microsoft.compute/virtualMachines/write", "microsoft.resources/deployments/write"]);
+let starttime = 7d;
+let endtime = 1d;
+let timeframe = 1d;
+let TimeSeriesData =
+AzureActivity
+| where TimeGenerated between (startofday(ago(starttime)) .. startofday(now()))
+| where OperationNameValue in~ (szOperationNames)
+| project TimeGenerated, Caller 
+| make-series Total = count() on TimeGenerated from startofday(ago(starttime)) to startofday(now()) step timeframe by Caller; 
+TimeSeriesData
+| extend (anomalies, score, baseline) = series_decompose_anomalies(Total, 3, -1, 'linefit')
+| mv-expand Total to typeof(double), TimeGenerated to typeof(datetime), anomalies to typeof(double), score to typeof(double), baseline to typeof(long) 
+| where TimeGenerated >= startofday(ago(endtime))
+| where anomalies > 0 and baseline > 0
+| project Caller, TimeGenerated, Total, baseline, anomalies, score
+| join (AzureActivity
+| where TimeGenerated > startofday(ago(endtime)) 
+| where OperationNameValue in~ (szOperationNames)
+| summarize make_set(OperationNameValue,100), make_set(_ResourceId,100), make_set(CallerIpAddress,100) by bin(TimeGenerated, timeframe), Caller
+) on TimeGenerated, Caller
+| mv-expand CallerIpAddress=set_CallerIpAddress
+| project-away Caller1
+| extend Name = iif(Caller has '@',tostring(split(Caller,'@',0)[0]),"")
+| extend UPNSuffix = iif(Caller has '@',tostring(split(Caller,'@',1)[0]),"")
+| extend AadUserId = iif(Caller !has '@',Caller,"")
+``` 
+ </details> 
   
 
 6. Review the rule configuration and click "Create" to activate the rule.
+ 
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/31209b32-50a8-4ee2-9f50-9ad2f716891a" height="80%" width="80%" alt="Validation of Analytics Rule from Template"/>
+
+  >**Note**: You now have an active rule. 
 
 </details>
 
