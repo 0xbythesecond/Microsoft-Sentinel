@@ -1,5 +1,8 @@
 # Microsoft Sentinel
 
+![Microsoft Sentinel](https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/f5612018-95df-451b-a434-5c6acd09f017)
+ 
+
 ## Implement Microsoft Sentinel
 
 Duration: 30 minutes
@@ -22,16 +25,55 @@ In this exercise, you will learn how to implement Microsoft Sentinel, a cloud-na
 3. On the Microsoft Sentinel blade, click "+ Create" to start the on-boarding process.
 
 4. On the "Add Microsoft Sentinel to a workspace" blade, select the Log Analytics workspace you created in the Azure Monitor lab and click "Add".
+  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/b3efe8ae-c8c4-4b67-93e8-ba86a9e1c20c" height="80%" width="80%" alt="Add Microsoft Sentinel to LAW"/>
 
-Task 2: Connect Azure Activity to Sentinel
+</details>
+
+#
+
+<details>
+
+<summary>  
+
+### Task 2: Connect Azure Activity to Sentinel
+  
+</summary>  
 
 1. On the Microsoft Sentinel blade, go to the Configuration section and click "Data connectors".
 
 2. On the Data connectors blade, search for "Azure" and select the Azure Activity data connector.
+  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/633ef6c4-6f1a-4eca-ab5a-82f40c0fe1e9" height="80%" width="80%" alt="Azure Activity Data Connectors"/>
+  
 
 3. On the Azure Activity blade, follow the instructions to configure the connector. This includes connecting your subscriptions through diagnostic settings using the Azure Policy Assignment wizard.
+  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/ce0a9355-c468-4926-b6b3-3d3cea1c6525" height="40%" width="40%" alt="Open Connector Page"/>  
+  
+Launch Policy Assignment Wizard  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/f51edc30-fbd0-4a74-b1ec-aa28556ae86e" height="90%" width="90%" alt="Launch Azure Policy Assignment Wizard"/>
+  
+  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/b1842d10-3d18-44a7-a9ab-cd767d791827" height="70%" width="70%" alt="Select Scope for Azure Activity Policy"/>
 
+  >**Note**: Do not choose a Resource Group
+
+Select Workspace for Azure Activity Policy
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/af85a06d-22c8-4b08-8cf7-ba0cf073027a" height="80%" width="80%" alt="Select Workspace for Azure Activity Policy"/>
+  
+Create a Remediation Task  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/e4869db2-91af-403f-a4a0-452228a4da48" height="90%" width="90%" alt="Create a Remediation Task"/>
+  
+Click the Next button at the bottom of the Remediation tab to proceed to the Non-compliance message tab. Enter a Non-compliance message if you wish (this is optional) and click the Review + Create button at the bottom of the Non-compliance message tab.  
+  
+Click the Create button. You should observe three succeeded status messages: Creating policy assignment succeeded, Role Assignments creation succeeded, and Remediation task creation succeeded.  
+  
 4. Review and confirm the successful configuration of the Azure Activity data connector.
+  
+  >**Note**: You can check the Notifications, bell icon to verify the three successful tasks.
+  
+  >**Note**: It may take over 15 minutes before the Status shows “Connected” and the graph displays Data received.
 
 </details>
 
@@ -48,12 +90,21 @@ Task 2: Connect Azure Activity to Sentinel
 1. On the Microsoft Sentinel Configuration blade, click "Analytics".
 
 2. On the Analytics blade, switch to the "Rule templates" tab.
+  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/f4715117-adc9-4784-b355-21e324bf8dc1" height="80%" width="80%" alt="Sentinel Analytics Rule Templates"/>
+  
+  >**Note**: Review the types of rules you can create. Each rule is associated with a specific Data Source. 
 
 3. Search for "Suspicious" and select the rule template associated with the Azure Activity data source for suspicious resource creation or deployment.
 
 4. Click "Create rule" to start creating the rule from the template.
+  
+<img src="https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/ede2cf96-e760-48f6-91a2-43d64a08be26" height="80%" width="80%" alt="Create Analytics Rule"/>
 
 5. Configure the rule settings on the General, Set rule logic, Incident settings, and Automated response tabs as per the default settings.
+  
+https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/c0792160-2e51-43d8-b0f9-5977cadd4883)
+  
 
 6. Review the rule configuration and click "Create" to activate the rule.
 
