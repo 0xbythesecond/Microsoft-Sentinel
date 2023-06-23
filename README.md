@@ -1,6 +1,6 @@
 # Microsoft Sentinel
 
-![Microsoft Sentinel](https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/f5612018-95df-451b-a434-5c6acd09f017)
+![Microsoft Sentinel (1)](https://github.com/0xbythesecond/Microsoft-Sentinel/assets/23303634/4ffe3cc6-a155-460f-81d0-5b0531d64cac)
  
 
 ## Implement Microsoft Sentinel
